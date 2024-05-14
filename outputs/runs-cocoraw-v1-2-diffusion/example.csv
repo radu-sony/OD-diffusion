@@ -1,0 +1,3 @@
+0.1,coco/bbox_mAP,coco/bbox_mAP_50,coco/bbox_mAP_75
+0.05,coco/bbox_mAP,coco/bbox_mAP_50,coco/bbox_mAP_75
+0.0,coco/bbox_mAP,coco/bbox_mAP_50,coco/bbox_mAP_75

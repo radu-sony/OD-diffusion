@@ -1,0 +1,2058 @@
+12/20 06:42:40 - mmengine - WARNING - Failed to search registry with scope "mmyolo" in the "log_processor" registry tree. As a workaround, the current "log_processor" registry in "mmengine" is used to build instance. This may cause unexpected failure when running the built modules. Please check whether "mmyolo" is a correct scope, or whether the registry is initialized.
+12/20 06:42:40 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.8.18 (default, Sep 11 2023, 13:40:15) [GCC 11.2.0]
+    CUDA available: True
+    numpy_random_seed: 1474549582
+    GPU 0,1,2,3,4,5,6,7: NVIDIA A100-SXM4-40GB
+    CUDA_HOME: /usr
+    NVCC: Cuda compilation tools, release 11.5, V11.5.119
+    GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+    PyTorch: 1.10.1
+    PyTorch compiling details: PyTorch built with:
+  - GCC 7.3
+  - C++ Version: 201402
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.2.3 (Git Hash 7336ca9f055cf1bfa13efb658fe15dc9b41f0740)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX512
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_37,code=compute_37
+  - CuDNN 8.2
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.2.0, CXX_COMPILER=/opt/rh/devtoolset-7/root/usr/bin/c++, CXX_FLAGS= -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.10.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, 
+
+    TorchVision: 0.11.2
+    OpenCV: 4.8.1
+    MMEngine: 0.10.1
+
+Runtime environment:
+    cudnn_benchmark: True
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 1474549582
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+12/20 06:42:41 - mmengine - INFO - Config:
+_file_client_args = dict(backend='disk')
+_multiscale_resize_transforms = [
+    dict(
+        transforms=[
+            dict(scale=(
+                640,
+                640,
+            ), type='YOLOv5KeepRatioResize'),
+            dict(
+                allow_scale_up=False,
+                pad_val=dict(img=114),
+                scale=(
+                    640,
+                    640,
+                ),
+                type='LetterResize'),
+        ],
+        type='Compose'),
+    dict(
+        transforms=[
+            dict(scale=(
+                320,
+                320,
+            ), type='YOLOv5KeepRatioResize'),
+            dict(
+                allow_scale_up=False,
+                pad_val=dict(img=114),
+                scale=(
+                    320,
+                    320,
+                ),
+                type='LetterResize'),
+        ],
+        type='Compose'),
+    dict(
+        transforms=[
+            dict(scale=(
+                960,
+                960,
+            ), type='YOLOv5KeepRatioResize'),
+            dict(
+                allow_scale_up=False,
+                pad_val=dict(img=114),
+                scale=(
+                    960,
+                    960,
+                ),
+                type='LetterResize'),
+        ],
+        type='Compose'),
+]
+affine_scale = 0.5
+albu_train_transforms = [
+    dict(p=0.01, type='Blur'),
+    dict(p=0.01, type='MedianBlur'),
+    dict(p=0.01, type='ToGray'),
+    dict(p=0.01, type='CLAHE'),
+]
+base_lr = 0.01
+batch_shapes_cfg = None
+close_mosaic_epochs = 10
+data_root = '/home/radu.berdan/datasets/cocoraw-v1/'
+dataset_type = 'YOLOv5CocoDataset'
+deepen_factor = 0.33
+default_hooks = dict(
+    checkpoint=dict(
+        interval=1, max_keep_ckpts=2, save_best='auto', type='CheckpointHook'),
+    logger=dict(
+        interval=50,
+        out_dir=
+        './runs/runs-cocoraw-v1-1-long/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal',
+        type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(type='mmdet.DetVisualizationHook'))
+default_scope = 'mmyolo'
+env_cfg = dict(
+    cudnn_benchmark=True,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+file_client_args = dict(backend='disk')
+img_scale = (
+    512,
+    512,
+)
+img_scales = [
+    (
+        640,
+        640,
+    ),
+    (
+        320,
+        320,
+    ),
+    (
+        960,
+        960,
+    ),
+]
+img_type = 'rggb'
+input_channels = 3
+last_stage_out_channels = 1024
+last_transform = [
+    dict(prob=0.5, type='mmdet.RandomFlip'),
+    dict(
+        meta_keys=(
+            'img_id',
+            'img_path',
+            'ori_shape',
+            'img_shape',
+            'flip',
+            'flip_direction',
+        ),
+        type='mmdet.PackDetInputs'),
+]
+load_from = None
+log_level = 'INFO'
+log_processor = dict(by_epoch=True, type='LogProcessor', window_size=50)
+loss_bbox_weight = 7.5
+loss_cls_weight = 0.5
+loss_dfl_weight = 0.375
+lr_factor = 0.01
+max_aspect_ratio = 100
+max_epochs = 500
+max_keep_ckpts = 2
+model = dict(
+    backbone=dict(
+        act_cfg=dict(inplace=True, type='SiLU'),
+        arch='P5',
+        deepen_factor=0.33,
+        input_channels=4,
+        last_stage_out_channels=1024,
+        norm_cfg=dict(eps=0.001, momentum=0.03, type='BN'),
+        preproc='preproc',
+        preproc_params=dict(
+            hidden_size=32,
+            mean=[
+                0.05423013,
+                0.1232285,
+                0.12346591,
+                0.11167766,
+            ],
+            n_layers=4,
+            n_params=3,
+            name='norm-max',
+            rggb_max=4096,
+            scale_test=1,
+            std=[
+                0.00626083,
+                0.02591333,
+                0.02623225,
+                0.02317211,
+            ],
+            value=1),
+        type='YOLOv8CSPDarknetPreproc',
+        widen_factor=0.5),
+    bbox_head=dict(
+        bbox_coder=dict(type='DistancePointBBoxCoder'),
+        head_module=dict(
+            act_cfg=dict(inplace=True, type='SiLU'),
+            featmap_strides=[
+                8,
+                16,
+                32,
+            ],
+            in_channels=[
+                256,
+                512,
+                1024,
+            ],
+            norm_cfg=dict(eps=0.001, momentum=0.03, type='BN'),
+            num_classes=3,
+            reg_max=16,
+            type='YOLOv8HeadModule',
+            widen_factor=0.5),
+        loss_bbox=dict(
+            bbox_format='xyxy',
+            iou_mode='ciou',
+            loss_weight=7.5,
+            reduction='sum',
+            return_iou=False,
+            type='IoULoss'),
+        loss_cls=dict(
+            loss_weight=0.5,
+            reduction='none',
+            type='mmdet.CrossEntropyLoss',
+            use_sigmoid=True),
+        loss_dfl=dict(
+            loss_weight=0.375,
+            reduction='mean',
+            type='mmdet.DistributionFocalLoss'),
+        prior_generator=dict(
+            offset=0.5, strides=[
+                8,
+                16,
+                32,
+            ], type='mmdet.MlvlPointGenerator'),
+        type='YOLOv8Head'),
+    data_preprocessor=dict(
+        bgr_to_rgb=False,
+        mean=[
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+        ],
+        std=[
+            1,
+            1,
+            1,
+            1,
+        ],
+        type='YOLOv5DetDataPreprocessor'),
+    neck=dict(
+        act_cfg=dict(inplace=True, type='SiLU'),
+        deepen_factor=0.33,
+        in_channels=[
+            256,
+            512,
+            1024,
+        ],
+        norm_cfg=dict(eps=0.001, momentum=0.03, type='BN'),
+        num_csp_blocks=3,
+        out_channels=[
+            256,
+            512,
+            1024,
+        ],
+        type='YOLOv8PAFPN',
+        widen_factor=0.5),
+    test_cfg=dict(
+        max_per_img=300,
+        multi_label=True,
+        nms=dict(iou_threshold=0.7, type='nms'),
+        nms_pre=30000,
+        score_thr=0.001),
+    train_cfg=dict(
+        assigner=dict(
+            alpha=0.5,
+            beta=6.0,
+            eps=1e-09,
+            num_classes=3,
+            topk=10,
+            type='BatchTaskAlignedAssigner',
+            use_ciou=True)),
+    type='YOLODetector')
+model_test_cfg = dict(
+    max_per_img=300,
+    multi_label=True,
+    nms=dict(iou_threshold=0.7, type='nms'),
+    nms_pre=30000,
+    score_thr=0.001)
+norm_cfg = dict(eps=0.001, momentum=0.03, type='BN')
+num_classes = 80
+num_det_layers = 3
+optim_wrapper = dict(
+    clip_grad=dict(max_norm=10.0),
+    constructor='YOLOv5OptimizerConstructor',
+    optimizer=dict(
+        batch_size_per_gpu=256,
+        lr=0.01,
+        momentum=0.937,
+        nesterov=True,
+        type='SGD',
+        weight_decay=0.0005),
+    type='OptimWrapper')
+optimizer_config = dict(
+    cumulative_iters=1, type='GradientCumulativeOptimizerHook')
+pad_val = 0
+persistent_workers = True
+pre_transform = [
+    dict(
+        file_client_args=dict(backend='disk'),
+        img_type='rggb',
+        type='LoadImageFromFile'),
+    dict(type='LoadAnnotations', with_bbox=True),
+]
+resume = False
+save_epoch_intervals = 1
+strides = [
+    8,
+    16,
+    32,
+]
+tal_alpha = 0.5
+tal_beta = 6.0
+tal_topk = 10
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=16,
+    dataset=dict(
+        ann_file='annotations/flip_dng_instances_test_tight.json',
+        batch_shapes_cfg=None,
+        data_prefix=dict(img='raw/'),
+        data_root='/home/radu.berdan/datasets/pascalraw_h400a/',
+        pipeline=[
+            dict(
+                file_client_args=dict(backend='disk'),
+                scale=1,
+                type='LoadImageFromFileRAW'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                allow_scale_up=False,
+                pad_val=dict(img=0),
+                scale=(
+                    320,
+                    320,
+                ),
+                type='LetterResize'),
+            dict(_scope_='mmdet', type='LoadAnnotations', with_bbox=True),
+            dict(
+                meta_keys=(
+                    'img_id',
+                    'img_path',
+                    'ori_shape',
+                    'img_shape',
+                    'scale_factor',
+                    'pad_param',
+                ),
+                type='mmdet.PackDetInputs'),
+        ],
+        test_mode=True,
+        type='YOLOv5CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    pin_memory=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file=
+    '/home/radu.berdan/datasets/pascalraw_h400a/annotations/flip_dng_instances_test_tight.json',
+    metric='bbox',
+    proposal_nums=(
+        100,
+        1,
+        10,
+    ),
+    type='mmdet.CocoMetric')
+test_pipeline = [
+    dict(
+        file_client_args=dict(backend='disk'),
+        img_type='rggb',
+        type='LoadImageFromFile'),
+    dict(scale=(
+        512,
+        512,
+    ), type='YOLOv5KeepRatioResize'),
+    dict(
+        allow_scale_up=False,
+        pad_val=dict(img=0),
+        scale=(
+            512,
+            512,
+        ),
+        type='LetterResize'),
+    dict(_scope_='mmdet', type='LoadAnnotations', with_bbox=True),
+    dict(
+        meta_keys=(
+            'img_id',
+            'img_path',
+            'ori_shape',
+            'img_shape',
+            'scale_factor',
+            'pad_param',
+        ),
+        type='mmdet.PackDetInputs'),
+]
+train_ann_file = 'annotations/instances_train2017_3cat.json'
+train_batch_size_per_gpu = 16
+train_cfg = dict(
+    dynamic_intervals=[],
+    max_epochs=40,
+    type='EpochBasedTrainLoop',
+    val_interval=1)
+train_data_prefix = 'images/train2017/'
+train_dataloader = dict(
+    batch_size=256,
+    collate_fn=dict(type='yolov5_collate'),
+    dataset=dict(
+        ann_file='annotations/cocoraw-v1-pascal+pascal_train.json',
+        data_prefix=dict(img=''),
+        data_root='/home/radu.berdan/datasets/',
+        filter_cfg=dict(filter_empty_gt=False, min_size=32),
+        pipeline=[
+            dict(
+                file_client_args=dict(backend='disk'),
+                scale=1,
+                type='LoadImageFromFileRAW'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(scale=(
+                320,
+                320,
+            ), type='YOLOv5KeepRatioResize'),
+            dict(
+                allow_scale_up=False,
+                pad_val=dict(img=0),
+                scale=(
+                    320,
+                    320,
+                ),
+                type='LetterResize'),
+            dict(prob=0.5, type='mmdet.RandomFlip'),
+            dict(
+                meta_keys=(
+                    'img_id',
+                    'img_path',
+                    'ori_shape',
+                    'img_shape',
+                    'flip',
+                    'flip_direction',
+                ),
+                type='mmdet.PackDetInputs'),
+        ],
+        type='YOLOv5CocoDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    pin_memory=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_num_workers = 8
+train_pipeline = [
+    dict(
+        file_client_args=dict(backend='disk'),
+        img_type='rggb',
+        type='LoadImageFromFile'),
+    dict(type='LoadAnnotations', with_bbox=True),
+    dict(scale=(
+        512,
+        512,
+    ), type='YOLOv5KeepRatioResize'),
+    dict(
+        allow_scale_up=False,
+        pad_val=dict(img=0),
+        scale=(
+            512,
+            512,
+        ),
+        type='LetterResize'),
+    dict(prob=0.5, type='mmdet.RandomFlip'),
+    dict(
+        meta_keys=(
+            'img_id',
+            'img_path',
+            'ori_shape',
+            'img_shape',
+            'flip',
+            'flip_direction',
+        ),
+        type='mmdet.PackDetInputs'),
+]
+train_pipeline_stage2 = [
+    dict(file_client_args=dict(backend='disk'), type='LoadImageFromFile'),
+    dict(type='LoadAnnotations', with_bbox=True),
+    dict(scale=(
+        640,
+        640,
+    ), type='YOLOv5KeepRatioResize'),
+    dict(
+        allow_scale_up=True,
+        pad_val=dict(img=114.0),
+        scale=(
+            640,
+            640,
+        ),
+        type='LetterResize'),
+    dict(
+        border_val=(
+            114,
+            114,
+            114,
+        ),
+        max_aspect_ratio=100,
+        max_rotate_degree=0.0,
+        max_shear_degree=0.0,
+        scaling_ratio_range=(
+            0.5,
+            1.5,
+        ),
+        type='YOLOv5RandomAffine'),
+    dict(
+        bbox_params=dict(
+            format='pascal_voc',
+            label_fields=[
+                'gt_bboxes_labels',
+                'gt_ignore_flags',
+            ],
+            type='BboxParams'),
+        keymap=dict(gt_bboxes='bboxes', img='image'),
+        transforms=[
+            dict(p=0.01, type='Blur'),
+            dict(p=0.01, type='MedianBlur'),
+            dict(p=0.01, type='ToGray'),
+            dict(p=0.01, type='CLAHE'),
+        ],
+        type='mmdet.Albu'),
+    dict(type='YOLOv5HSVRandomAug'),
+    dict(prob=0.5, type='mmdet.RandomFlip'),
+    dict(
+        meta_keys=(
+            'img_id',
+            'img_path',
+            'ori_shape',
+            'img_shape',
+            'flip',
+            'flip_direction',
+        ),
+        type='mmdet.PackDetInputs'),
+]
+tta_model = dict(
+    tta_cfg=dict(max_per_img=300, nms=dict(iou_threshold=0.65, type='nms')),
+    type='mmdet.DetTTAModel')
+tta_pipeline = [
+    dict(file_client_args=dict(backend='disk'), type='LoadImageFromFile'),
+    dict(
+        transforms=[
+            [
+                dict(
+                    transforms=[
+                        dict(scale=(
+                            640,
+                            640,
+                        ), type='YOLOv5KeepRatioResize'),
+                        dict(
+                            allow_scale_up=False,
+                            pad_val=dict(img=114),
+                            scale=(
+                                640,
+                                640,
+                            ),
+                            type='LetterResize'),
+                    ],
+                    type='Compose'),
+                dict(
+                    transforms=[
+                        dict(scale=(
+                            320,
+                            320,
+                        ), type='YOLOv5KeepRatioResize'),
+                        dict(
+                            allow_scale_up=False,
+                            pad_val=dict(img=114),
+                            scale=(
+                                320,
+                                320,
+                            ),
+                            type='LetterResize'),
+                    ],
+                    type='Compose'),
+                dict(
+                    transforms=[
+                        dict(scale=(
+                            960,
+                            960,
+                        ), type='YOLOv5KeepRatioResize'),
+                        dict(
+                            allow_scale_up=False,
+                            pad_val=dict(img=114),
+                            scale=(
+                                960,
+                                960,
+                            ),
+                            type='LetterResize'),
+                    ],
+                    type='Compose'),
+            ],
+            [
+                dict(prob=1.0, type='mmdet.RandomFlip'),
+                dict(prob=0.0, type='mmdet.RandomFlip'),
+            ],
+            [
+                dict(type='mmdet.LoadAnnotations', with_bbox=True),
+            ],
+            [
+                dict(
+                    meta_keys=(
+                        'img_id',
+                        'img_path',
+                        'ori_shape',
+                        'img_shape',
+                        'scale_factor',
+                        'pad_param',
+                        'flip',
+                        'flip_direction',
+                    ),
+                    type='mmdet.PackDetInputs'),
+            ],
+        ],
+        type='TestTimeAug'),
+]
+val_ann_file = 'annotations/instances_val2017_3cat.json'
+val_batch_size_per_gpu = 16
+val_cfg = dict(type='ValLoop')
+val_data_prefix = 'images/val2017/'
+val_dataloader = dict(
+    batch_size=16,
+    dataset=dict(
+        ann_file='annotations/flip_dng_instances_test_tight.json',
+        batch_shapes_cfg=None,
+        data_prefix=dict(img='raw/'),
+        data_root='/home/radu.berdan/datasets/pascalraw_h400a/',
+        pipeline=[
+            dict(
+                file_client_args=dict(backend='disk'),
+                scale=1,
+                type='LoadImageFromFileRAW'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                allow_scale_up=False,
+                pad_val=dict(img=0),
+                scale=(
+                    320,
+                    320,
+                ),
+                type='LetterResize'),
+            dict(_scope_='mmdet', type='LoadAnnotations', with_bbox=True),
+            dict(
+                meta_keys=(
+                    'img_id',
+                    'img_path',
+                    'ori_shape',
+                    'img_shape',
+                    'scale_factor',
+                    'pad_param',
+                ),
+                type='mmdet.PackDetInputs'),
+        ],
+        test_mode=True,
+        type='YOLOv5CocoDataset'),
+    drop_last=False,
+    num_workers=2,
+    persistent_workers=True,
+    pin_memory=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file=
+    '/home/radu.berdan/datasets/pascalraw_h400a/annotations/flip_dng_instances_test_tight.json',
+    metric='bbox',
+    proposal_nums=(
+        100,
+        1,
+        10,
+    ),
+    type='mmdet.CocoMetric')
+val_interval_stage2 = 1
+val_num_workers = 2
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='mmdet.DetLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+weight_decay = 0.0005
+widen_factor = 0.25
+work_dir = './work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/'
+
+-> PREPROC preproc
+-> PREPROC preproc
+!!!!!!!!!!!!!!!!!!!!!!!! Building preproc layer {'name': 'norm-max', 'value': 1, 'rggb_max': 4096, 'hidden_size': 32, 'n_layers': 4, 'n_params': 3, 'mean': [0.05423013, 0.1232285, 0.12346591, 0.11167766], 'std': [0.00626083, 0.02591333, 0.02623225, 0.02317211], 'scale_test': 1}
+-> Building simple norm max layer.
+12/20 06:42:46 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+12/20 06:42:46 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+12/20 06:42:46 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+12/20 06:42:46 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DetVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DetVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+loading annotations into memory...
+Done (t=7.59s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+loading annotations into memory...
+Done (t=0.00s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+12/20 06:43:02 - mmengine - INFO - Text logs will be saved to ./runs/runs-cocoraw-v1-1-long/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal after the training process.
+12/20 06:43:02 - mmengine - INFO - Checkpoints will be saved to /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal.
+########################################################################################################################################################################################################
+Starting: 1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal
+12/20 06:43:02 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 06:43:02 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.01
+/home/radu.berdan/anaconda3/envs/mmyolo/lib/python3.8/site-packages/torch/functional.py:445: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  /opt/conda/conda-bld/pytorch_1639180588308/work/aten/src/ATen/native/TensorShape.cpp:2157.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+12/20 06:45:49 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0865  data_time: 0.0104  memory: 24384  
+12/20 06:45:52 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.66s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=3.25s).
+Accumulating evaluation results...
+DONE (t=1.15s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.212
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.427
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.188
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.024
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.269
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.248
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.404
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.469
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.017
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.228
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.548
+12/20 06:45:58 - mmengine - INFO - bbox_mAP_copypaste: 0.2123 0.4272 0.1883 0.0000 0.0239 0.2691
+12/20 06:45:58 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.2123  coco/bbox_mAP_50: 0.4272  coco/bbox_mAP_75: 0.1883  coco/bbox_mAP_s: 0.0000  coco/bbox_mAP_m: 0.0239  coco/bbox_mAP_l: 0.2691  data_time: 0.0097  time: 0.0869
+12/20 06:45:59 - mmengine - INFO - The best checkpoint with 0.2123 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.2123, 'coco/bbox_mAP_50': 0.4272, 'coco/bbox_mAP_75': 0.1883, 'coco/bbox_mAP_s': 0.0, 'coco/bbox_mAP_m': 0.0239, 'coco/bbox_mAP_l': 0.2691}
+12/20 06:45:59 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 06:45:59 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00978
+12/20 06:48:38 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0722  data_time: 0.0034  memory: 24381  
+12/20 06:48:40 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.64s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=3.50s).
+Accumulating evaluation results...
+DONE (t=1.21s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.321
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.579
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.338
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.003
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.079
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.400
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.350
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.499
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.560
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.106
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.340
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.640
+12/20 06:48:47 - mmengine - INFO - bbox_mAP_copypaste: 0.3206 0.5795 0.3378 0.0025 0.0787 0.4005
+12/20 06:48:47 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.3206  coco/bbox_mAP_50: 0.5795  coco/bbox_mAP_75: 0.3378  coco/bbox_mAP_s: 0.0025  coco/bbox_mAP_m: 0.0787  coco/bbox_mAP_l: 0.4005  data_time: 0.0032  time: 0.0731
+12/20 06:48:47 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 06:48:48 - mmengine - INFO - The best checkpoint with 0.3206 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.3206, 'coco/bbox_mAP_50': 0.5795, 'coco/bbox_mAP_75': 0.3378, 'coco/bbox_mAP_s': 0.0025, 'coco/bbox_mAP_m': 0.0787, 'coco/bbox_mAP_l': 0.4005}
+12/20 06:48:48 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 06:48:48 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00955
+12/20 06:51:28 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0721  data_time: 0.0032  memory: 24381  
+12/20 06:51:29 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.22s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.61s).
+Accumulating evaluation results...
+DONE (t=0.53s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.411
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.690
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.450
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.031
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.120
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.497
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.422
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.562
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.591
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.154
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.367
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.670
+12/20 06:51:32 - mmengine - INFO - bbox_mAP_copypaste: 0.4112 0.6904 0.4499 0.0309 0.1195 0.4974
+12/20 06:51:32 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.4112  coco/bbox_mAP_50: 0.6904  coco/bbox_mAP_75: 0.4499  coco/bbox_mAP_s: 0.0309  coco/bbox_mAP_m: 0.1195  coco/bbox_mAP_l: 0.4974  data_time: 0.0030  time: 0.0698
+12/20 06:51:32 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 06:51:33 - mmengine - INFO - The best checkpoint with 0.4112 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.4112, 'coco/bbox_mAP_50': 0.6904, 'coco/bbox_mAP_75': 0.4499, 'coco/bbox_mAP_s': 0.0309, 'coco/bbox_mAP_m': 0.1195, 'coco/bbox_mAP_l': 0.4974}
+12/20 06:51:33 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 06:51:33 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00932
+12/20 06:54:12 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0721  data_time: 0.0041  memory: 24381  
+12/20 06:54:13 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.40s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.82s).
+Accumulating evaluation results...
+DONE (t=0.60s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.480
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.753
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.527
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.040
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.147
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.581
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.479
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.603
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.628
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.187
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.399
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.705
+12/20 06:54:16 - mmengine - INFO - bbox_mAP_copypaste: 0.4800 0.7527 0.5268 0.0404 0.1472 0.5808
+12/20 06:54:16 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.4800  coco/bbox_mAP_50: 0.7527  coco/bbox_mAP_75: 0.5268  coco/bbox_mAP_s: 0.0404  coco/bbox_mAP_m: 0.1472  coco/bbox_mAP_l: 0.5808  data_time: 0.0038  time: 0.0696
+12/20 06:54:16 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 06:54:17 - mmengine - INFO - The best checkpoint with 0.4800 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.48, 'coco/bbox_mAP_50': 0.7527, 'coco/bbox_mAP_75': 0.5268, 'coco/bbox_mAP_s': 0.0404, 'coco/bbox_mAP_m': 0.1472, 'coco/bbox_mAP_l': 0.5808}
+12/20 06:54:17 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 06:54:17 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.0091
+12/20 06:56:56 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0710  data_time: 0.0030  memory: 24381  
+12/20 06:56:57 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.26s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.93s).
+Accumulating evaluation results...
+DONE (t=0.65s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.514
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.787
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.553
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.038
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.163
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.625
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.499
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.623
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.646
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.201
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.403
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.728
+12/20 06:57:01 - mmengine - INFO - bbox_mAP_copypaste: 0.5141 0.7865 0.5527 0.0384 0.1633 0.6246
+12/20 06:57:01 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.5141  coco/bbox_mAP_50: 0.7865  coco/bbox_mAP_75: 0.5527  coco/bbox_mAP_s: 0.0384  coco/bbox_mAP_m: 0.1633  coco/bbox_mAP_l: 0.6246  data_time: 0.0028  time: 0.0687
+12/20 06:57:01 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 06:57:02 - mmengine - INFO - The best checkpoint with 0.5141 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.5141, 'coco/bbox_mAP_50': 0.7865, 'coco/bbox_mAP_75': 0.5527, 'coco/bbox_mAP_s': 0.0384, 'coco/bbox_mAP_m': 0.1633, 'coco/bbox_mAP_l': 0.6246}
+12/20 06:57:02 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 06:57:02 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00888
+12/20 06:59:41 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0673  data_time: 0.0033  memory: 24381  
+12/20 06:59:42 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.23s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.60s).
+Accumulating evaluation results...
+DONE (t=0.56s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.535
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.816
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.578
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.041
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.180
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.640
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.507
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.635
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.654
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.158
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.420
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.735
+12/20 06:59:45 - mmengine - INFO - bbox_mAP_copypaste: 0.5352 0.8157 0.5775 0.0408 0.1798 0.6400
+12/20 06:59:45 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.5352  coco/bbox_mAP_50: 0.8157  coco/bbox_mAP_75: 0.5775  coco/bbox_mAP_s: 0.0408  coco/bbox_mAP_m: 0.1798  coco/bbox_mAP_l: 0.6400  data_time: 0.0031  time: 0.0653
+12/20 06:59:45 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 06:59:46 - mmengine - INFO - The best checkpoint with 0.5352 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.5352, 'coco/bbox_mAP_50': 0.8157, 'coco/bbox_mAP_75': 0.5775, 'coco/bbox_mAP_s': 0.0408, 'coco/bbox_mAP_m': 0.1798, 'coco/bbox_mAP_l': 0.64}
+12/20 06:59:46 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 06:59:46 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00865
+12/20 07:02:27 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0674  data_time: 0.0029  memory: 24381  
+12/20 07:02:28 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.23s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.98s).
+Accumulating evaluation results...
+DONE (t=0.62s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.542
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.820
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.584
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.047
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.188
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.645
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.517
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.650
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.664
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.159
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.440
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.741
+12/20 07:02:31 - mmengine - INFO - bbox_mAP_copypaste: 0.5417 0.8200 0.5838 0.0468 0.1879 0.6452
+12/20 07:02:31 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.5417  coco/bbox_mAP_50: 0.8200  coco/bbox_mAP_75: 0.5838  coco/bbox_mAP_s: 0.0468  coco/bbox_mAP_m: 0.1879  coco/bbox_mAP_l: 0.6452  data_time: 0.0028  time: 0.0654
+12/20 07:02:31 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 07:02:32 - mmengine - INFO - The best checkpoint with 0.5417 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.5417, 'coco/bbox_mAP_50': 0.82, 'coco/bbox_mAP_75': 0.5838, 'coco/bbox_mAP_s': 0.0468, 'coco/bbox_mAP_m': 0.1879, 'coco/bbox_mAP_l': 0.6452}
+12/20 07:02:32 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:02:32 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00842
+12/20 07:05:12 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0692  data_time: 0.0033  memory: 24381  
+12/20 07:05:13 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.22s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.57s).
+Accumulating evaluation results...
+DONE (t=0.50s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.568
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.853
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.613
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.052
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.224
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.672
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.531
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.661
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.677
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.163
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.455
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.756
+12/20 07:05:16 - mmengine - INFO - bbox_mAP_copypaste: 0.5681 0.8525 0.6131 0.0525 0.2239 0.6720
+12/20 07:05:16 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.5681  coco/bbox_mAP_50: 0.8525  coco/bbox_mAP_75: 0.6131  coco/bbox_mAP_s: 0.0525  coco/bbox_mAP_m: 0.2239  coco/bbox_mAP_l: 0.6720  data_time: 0.0031  time: 0.0670
+12/20 07:05:16 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 07:05:17 - mmengine - INFO - The best checkpoint with 0.5681 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.5681, 'coco/bbox_mAP_50': 0.8525, 'coco/bbox_mAP_75': 0.6131, 'coco/bbox_mAP_s': 0.0525, 'coco/bbox_mAP_m': 0.2239, 'coco/bbox_mAP_l': 0.672}
+12/20 07:05:17 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:05:17 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.0082
+12/20 07:08:02 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.1032  data_time: 0.0063  memory: 24381  
+12/20 07:08:04 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.39s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=2.32s).
+Accumulating evaluation results...
+DONE (t=0.84s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.580
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.848
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.638
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.055
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.244
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.682
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.543
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.679
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.691
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.162
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.476
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.765
+12/20 07:08:08 - mmengine - INFO - bbox_mAP_copypaste: 0.5796 0.8484 0.6382 0.0546 0.2441 0.6819
+12/20 07:08:08 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.5796  coco/bbox_mAP_50: 0.8484  coco/bbox_mAP_75: 0.6382  coco/bbox_mAP_s: 0.0546  coco/bbox_mAP_m: 0.2441  coco/bbox_mAP_l: 0.6819  data_time: 0.0060  time: 0.0995
+12/20 07:08:08 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 07:08:09 - mmengine - INFO - The best checkpoint with 0.5796 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.5796, 'coco/bbox_mAP_50': 0.8484, 'coco/bbox_mAP_75': 0.6382, 'coco/bbox_mAP_s': 0.0546, 'coco/bbox_mAP_m': 0.2441, 'coco/bbox_mAP_l': 0.6819}
+12/20 07:08:09 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:08:09 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00798
+12/20 07:11:06 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0860  data_time: 0.0044  memory: 24381  
+12/20 07:11:07 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.10s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=2.71s).
+Accumulating evaluation results...
+DONE (t=0.82s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.587
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.860
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.636
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.046
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.251
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.689
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.548
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.674
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.691
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.176
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.463
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.770
+12/20 07:11:11 - mmengine - INFO - bbox_mAP_copypaste: 0.5867 0.8601 0.6358 0.0455 0.2507 0.6890
+12/20 07:11:11 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.5867  coco/bbox_mAP_50: 0.8601  coco/bbox_mAP_75: 0.6358  coco/bbox_mAP_s: 0.0455  coco/bbox_mAP_m: 0.2507  coco/bbox_mAP_l: 0.6890  data_time: 0.0041  time: 0.0834
+12/20 07:11:11 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 07:11:13 - mmengine - INFO - The best checkpoint with 0.5867 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.5867, 'coco/bbox_mAP_50': 0.8601, 'coco/bbox_mAP_75': 0.6358, 'coco/bbox_mAP_s': 0.0455, 'coco/bbox_mAP_m': 0.2507, 'coco/bbox_mAP_l': 0.689}
+12/20 07:11:13 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:11:13 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00775
+12/20 07:14:11 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.1004  data_time: 0.0039  memory: 24381  
+12/20 07:14:13 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.34s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=2.64s).
+Accumulating evaluation results...
+DONE (t=0.82s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.588
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.866
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.639
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.058
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.255
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.689
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.547
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.678
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.695
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.201
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.478
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.771
+12/20 07:14:17 - mmengine - INFO - bbox_mAP_copypaste: 0.5882 0.8658 0.6395 0.0582 0.2554 0.6889
+12/20 07:14:17 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.5882  coco/bbox_mAP_50: 0.8658  coco/bbox_mAP_75: 0.6395  coco/bbox_mAP_s: 0.0582  coco/bbox_mAP_m: 0.2554  coco/bbox_mAP_l: 0.6889  data_time: 0.0037  time: 0.0969
+12/20 07:14:17 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 07:14:19 - mmengine - INFO - The best checkpoint with 0.5882 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.5882, 'coco/bbox_mAP_50': 0.8658, 'coco/bbox_mAP_75': 0.6395, 'coco/bbox_mAP_s': 0.0582, 'coco/bbox_mAP_m': 0.2554, 'coco/bbox_mAP_l': 0.6889}
+12/20 07:14:19 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:14:19 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00752
+12/20 07:17:14 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0987  data_time: 0.0048  memory: 24381  
+12/20 07:17:15 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.40s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=2.94s).
+Accumulating evaluation results...
+DONE (t=0.94s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.595
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.851
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.642
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.071
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.258
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.701
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.557
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.686
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.704
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.204
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.479
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.781
+12/20 07:17:21 - mmengine - INFO - bbox_mAP_copypaste: 0.5947 0.8509 0.6421 0.0706 0.2581 0.7006
+12/20 07:17:21 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.5947  coco/bbox_mAP_50: 0.8509  coco/bbox_mAP_75: 0.6421  coco/bbox_mAP_s: 0.0706  coco/bbox_mAP_m: 0.2581  coco/bbox_mAP_l: 0.7006  data_time: 0.0046  time: 0.0953
+12/20 07:17:21 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 07:17:22 - mmengine - INFO - The best checkpoint with 0.5947 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.5947, 'coco/bbox_mAP_50': 0.8509, 'coco/bbox_mAP_75': 0.6421, 'coco/bbox_mAP_s': 0.0706, 'coco/bbox_mAP_m': 0.2581, 'coco/bbox_mAP_l': 0.7006}
+12/20 07:17:22 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:17:22 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.0073
+12/20 07:20:20 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0991  data_time: 0.0038  memory: 24381  
+12/20 07:20:22 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.34s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=2.65s).
+Accumulating evaluation results...
+DONE (t=0.89s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.577
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.854
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.622
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.059
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.250
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.675
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.535
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.671
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.687
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.200
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.489
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.757
+12/20 07:20:26 - mmengine - INFO - bbox_mAP_copypaste: 0.5765 0.8540 0.6223 0.0588 0.2499 0.6748
+12/20 07:20:26 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.5765  coco/bbox_mAP_50: 0.8540  coco/bbox_mAP_75: 0.6223  coco/bbox_mAP_s: 0.0588  coco/bbox_mAP_m: 0.2499  coco/bbox_mAP_l: 0.6748  data_time: 0.0036  time: 0.0960
+{'coco/bbox_mAP': 0.5765, 'coco/bbox_mAP_50': 0.854, 'coco/bbox_mAP_75': 0.6223, 'coco/bbox_mAP_s': 0.0588, 'coco/bbox_mAP_m': 0.2499, 'coco/bbox_mAP_l': 0.6748}
+12/20 07:20:26 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:20:26 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00708
+12/20 07:23:22 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0710  data_time: 0.0033  memory: 24381  
+12/20 07:23:23 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.21s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.34s).
+Accumulating evaluation results...
+DONE (t=0.47s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.606
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.884
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.657
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.065
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.280
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.702
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.557
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.681
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.698
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.152
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.491
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.771
+12/20 07:23:25 - mmengine - INFO - bbox_mAP_copypaste: 0.6056 0.8836 0.6571 0.0652 0.2803 0.7021
+12/20 07:23:25 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6056  coco/bbox_mAP_50: 0.8836  coco/bbox_mAP_75: 0.6571  coco/bbox_mAP_s: 0.0652  coco/bbox_mAP_m: 0.2803  coco/bbox_mAP_l: 0.7021  data_time: 0.0031  time: 0.0690
+12/20 07:23:25 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 07:23:27 - mmengine - INFO - The best checkpoint with 0.6056 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.6056, 'coco/bbox_mAP_50': 0.8836, 'coco/bbox_mAP_75': 0.6571, 'coco/bbox_mAP_s': 0.0652, 'coco/bbox_mAP_m': 0.2803, 'coco/bbox_mAP_l': 0.7021}
+12/20 07:23:27 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:23:27 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00685
+12/20 07:26:24 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0871  data_time: 0.0049  memory: 24381  
+12/20 07:26:25 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.18s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.25s).
+Accumulating evaluation results...
+DONE (t=0.61s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.609
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.878
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.658
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.054
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.278
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.706
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.565
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.691
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.703
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.195
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.498
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.773
+12/20 07:26:27 - mmengine - INFO - bbox_mAP_copypaste: 0.6091 0.8780 0.6585 0.0542 0.2779 0.7056
+12/20 07:26:27 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6091  coco/bbox_mAP_50: 0.8780  coco/bbox_mAP_75: 0.6585  coco/bbox_mAP_s: 0.0542  coco/bbox_mAP_m: 0.2779  coco/bbox_mAP_l: 0.7056  data_time: 0.0045  time: 0.0834
+12/20 07:26:27 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 07:26:29 - mmengine - INFO - The best checkpoint with 0.6091 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.6091, 'coco/bbox_mAP_50': 0.878, 'coco/bbox_mAP_75': 0.6585, 'coco/bbox_mAP_s': 0.0542, 'coco/bbox_mAP_m': 0.2779, 'coco/bbox_mAP_l': 0.7056}
+12/20 07:26:29 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:26:29 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00662
+12/20 07:29:20 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.1010  data_time: 0.0051  memory: 24381  
+12/20 07:29:21 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.23s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.45s).
+Accumulating evaluation results...
+DONE (t=0.47s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.607
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.884
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.659
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.059
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.282
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.706
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.567
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.684
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.697
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.173
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.472
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.774
+12/20 07:29:23 - mmengine - INFO - bbox_mAP_copypaste: 0.6069 0.8837 0.6589 0.0586 0.2823 0.7061
+12/20 07:29:23 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6069  coco/bbox_mAP_50: 0.8837  coco/bbox_mAP_75: 0.6589  coco/bbox_mAP_s: 0.0586  coco/bbox_mAP_m: 0.2823  coco/bbox_mAP_l: 0.7061  data_time: 0.0048  time: 0.0972
+{'coco/bbox_mAP': 0.6069, 'coco/bbox_mAP_50': 0.8837, 'coco/bbox_mAP_75': 0.6589, 'coco/bbox_mAP_s': 0.0586, 'coco/bbox_mAP_m': 0.2823, 'coco/bbox_mAP_l': 0.7061}
+12/20 07:29:23 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:29:23 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.0064
+12/20 07:32:14 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0665  data_time: 0.0029  memory: 24381  
+12/20 07:32:16 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.26s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.98s).
+Accumulating evaluation results...
+DONE (t=0.64s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.612
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.882
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.655
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.052
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.276
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.714
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.565
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.692
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.709
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.226
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.492
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.785
+12/20 07:32:19 - mmengine - INFO - bbox_mAP_copypaste: 0.6125 0.8824 0.6553 0.0521 0.2761 0.7135
+12/20 07:32:19 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6125  coco/bbox_mAP_50: 0.8824  coco/bbox_mAP_75: 0.6553  coco/bbox_mAP_s: 0.0521  coco/bbox_mAP_m: 0.2761  coco/bbox_mAP_l: 0.7135  data_time: 0.0027  time: 0.0648
+12/20 07:32:19 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 07:32:20 - mmengine - INFO - The best checkpoint with 0.6125 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.6125, 'coco/bbox_mAP_50': 0.8824, 'coco/bbox_mAP_75': 0.6553, 'coco/bbox_mAP_s': 0.0521, 'coco/bbox_mAP_m': 0.2761, 'coco/bbox_mAP_l': 0.7135}
+12/20 07:32:20 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:32:20 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00618
+12/20 07:35:12 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0756  data_time: 0.0034  memory: 24381  
+12/20 07:35:13 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.05s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.60s).
+Accumulating evaluation results...
+DONE (t=0.43s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.619
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.888
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.667
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.041
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.269
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.721
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.572
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.694
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.708
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.153
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.484
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.787
+12/20 07:35:15 - mmengine - INFO - bbox_mAP_copypaste: 0.6186 0.8876 0.6672 0.0407 0.2694 0.7205
+12/20 07:35:15 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6186  coco/bbox_mAP_50: 0.8876  coco/bbox_mAP_75: 0.6672  coco/bbox_mAP_s: 0.0407  coco/bbox_mAP_m: 0.2694  coco/bbox_mAP_l: 0.7205  data_time: 0.0032  time: 0.0728
+12/20 07:35:15 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 07:35:16 - mmengine - INFO - The best checkpoint with 0.6186 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.6186, 'coco/bbox_mAP_50': 0.8876, 'coco/bbox_mAP_75': 0.6672, 'coco/bbox_mAP_s': 0.0407, 'coco/bbox_mAP_m': 0.2694, 'coco/bbox_mAP_l': 0.7205}
+12/20 07:35:16 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:35:16 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00595
+12/20 07:38:04 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0837  data_time: 0.0035  memory: 24381  
+12/20 07:38:06 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.27s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.93s).
+Accumulating evaluation results...
+DONE (t=0.63s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.601
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.861
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.643
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.035
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.261
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.702
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.557
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.685
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.698
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.217
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.478
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.774
+12/20 07:38:09 - mmengine - INFO - bbox_mAP_copypaste: 0.6008 0.8608 0.6432 0.0350 0.2614 0.7024
+12/20 07:38:09 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6008  coco/bbox_mAP_50: 0.8608  coco/bbox_mAP_75: 0.6432  coco/bbox_mAP_s: 0.0350  coco/bbox_mAP_m: 0.2614  coco/bbox_mAP_l: 0.7024  data_time: 0.0033  time: 0.0809
+{'coco/bbox_mAP': 0.6008, 'coco/bbox_mAP_50': 0.8608, 'coco/bbox_mAP_75': 0.6432, 'coco/bbox_mAP_s': 0.035, 'coco/bbox_mAP_m': 0.2614, 'coco/bbox_mAP_l': 0.7024}
+12/20 07:38:09 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:38:09 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00572
+12/20 07:40:59 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0838  data_time: 0.0033  memory: 24381  
+12/20 07:40:59 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.23s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.47s).
+Accumulating evaluation results...
+DONE (t=0.51s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.619
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.882
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.671
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.063
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.293
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.720
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.570
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.696
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.709
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.207
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.491
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.786
+12/20 07:41:02 - mmengine - INFO - bbox_mAP_copypaste: 0.6194 0.8820 0.6707 0.0627 0.2927 0.7205
+12/20 07:41:02 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6194  coco/bbox_mAP_50: 0.8820  coco/bbox_mAP_75: 0.6707  coco/bbox_mAP_s: 0.0627  coco/bbox_mAP_m: 0.2927  coco/bbox_mAP_l: 0.7205  data_time: 0.0031  time: 0.0812
+12/20 07:41:02 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 07:41:03 - mmengine - INFO - The best checkpoint with 0.6194 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.6194, 'coco/bbox_mAP_50': 0.882, 'coco/bbox_mAP_75': 0.6707, 'coco/bbox_mAP_s': 0.0627, 'coco/bbox_mAP_m': 0.2927, 'coco/bbox_mAP_l': 0.7205}
+12/20 07:41:03 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:41:03 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.0055
+12/20 07:43:51 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0882  data_time: 0.0032  memory: 24381  
+12/20 07:43:52 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.28s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.88s).
+Accumulating evaluation results...
+DONE (t=0.66s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.601
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.871
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.649
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.067
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.274
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.700
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.560
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.685
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.700
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.258
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.466
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.777
+12/20 07:43:55 - mmengine - INFO - bbox_mAP_copypaste: 0.6014 0.8714 0.6485 0.0671 0.2739 0.7000
+12/20 07:43:55 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6014  coco/bbox_mAP_50: 0.8714  coco/bbox_mAP_75: 0.6485  coco/bbox_mAP_s: 0.0671  coco/bbox_mAP_m: 0.2739  coco/bbox_mAP_l: 0.7000  data_time: 0.0030  time: 0.0850
+{'coco/bbox_mAP': 0.6014, 'coco/bbox_mAP_50': 0.8714, 'coco/bbox_mAP_75': 0.6485, 'coco/bbox_mAP_s': 0.0671, 'coco/bbox_mAP_m': 0.2739, 'coco/bbox_mAP_l': 0.7}
+12/20 07:43:55 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:43:55 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00527
+12/20 07:46:42 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0821  data_time: 0.0032  memory: 24381  
+12/20 07:46:43 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.22s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.85s).
+Accumulating evaluation results...
+DONE (t=0.54s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.621
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.882
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.666
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.038
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.292
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.718
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.575
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.698
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.708
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.199
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.493
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.782
+12/20 07:46:45 - mmengine - INFO - bbox_mAP_copypaste: 0.6212 0.8819 0.6662 0.0377 0.2923 0.7183
+12/20 07:46:45 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6212  coco/bbox_mAP_50: 0.8819  coco/bbox_mAP_75: 0.6662  coco/bbox_mAP_s: 0.0377  coco/bbox_mAP_m: 0.2923  coco/bbox_mAP_l: 0.7183  data_time: 0.0031  time: 0.0795
+12/20 07:46:45 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 07:46:47 - mmengine - INFO - The best checkpoint with 0.6212 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.6212, 'coco/bbox_mAP_50': 0.8819, 'coco/bbox_mAP_75': 0.6662, 'coco/bbox_mAP_s': 0.0377, 'coco/bbox_mAP_m': 0.2923, 'coco/bbox_mAP_l': 0.7183}
+12/20 07:46:47 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:46:47 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00505
+12/20 07:49:36 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0709  data_time: 0.0033  memory: 24381  
+12/20 07:49:36 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.18s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.22s).
+Accumulating evaluation results...
+DONE (t=0.58s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.619
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.886
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.665
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.068
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.272
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.723
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.576
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.695
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.710
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.214
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.478
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.790
+12/20 07:49:38 - mmengine - INFO - bbox_mAP_copypaste: 0.6185 0.8856 0.6646 0.0678 0.2720 0.7226
+12/20 07:49:38 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6185  coco/bbox_mAP_50: 0.8856  coco/bbox_mAP_75: 0.6646  coco/bbox_mAP_s: 0.0678  coco/bbox_mAP_m: 0.2720  coco/bbox_mAP_l: 0.7226  data_time: 0.0031  time: 0.0688
+{'coco/bbox_mAP': 0.6185, 'coco/bbox_mAP_50': 0.8856, 'coco/bbox_mAP_75': 0.6646, 'coco/bbox_mAP_s': 0.0678, 'coco/bbox_mAP_m': 0.272, 'coco/bbox_mAP_l': 0.7226}
+12/20 07:49:38 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:49:38 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00483
+12/20 07:52:26 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0841  data_time: 0.0043  memory: 24381  
+12/20 07:52:27 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.05s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.76s).
+Accumulating evaluation results...
+DONE (t=0.54s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.607
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.868
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.662
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.040
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.267
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.711
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.568
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.695
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.708
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.201
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.499
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.781
+12/20 07:52:30 - mmengine - INFO - bbox_mAP_copypaste: 0.6073 0.8683 0.6619 0.0401 0.2669 0.7106
+12/20 07:52:30 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6073  coco/bbox_mAP_50: 0.8683  coco/bbox_mAP_75: 0.6619  coco/bbox_mAP_s: 0.0401  coco/bbox_mAP_m: 0.2669  coco/bbox_mAP_l: 0.7106  data_time: 0.0040  time: 0.0813
+{'coco/bbox_mAP': 0.6073, 'coco/bbox_mAP_50': 0.8683, 'coco/bbox_mAP_75': 0.6619, 'coco/bbox_mAP_s': 0.0401, 'coco/bbox_mAP_m': 0.2669, 'coco/bbox_mAP_l': 0.7106}
+12/20 07:52:30 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:52:30 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.0046
+12/20 07:55:16 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0677  data_time: 0.0041  memory: 24381  
+12/20 07:55:17 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.19s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.56s).
+Accumulating evaluation results...
+DONE (t=0.50s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.630
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.885
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.667
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.053
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.276
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.737
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.580
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.699
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.714
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.217
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.489
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.792
+12/20 07:55:19 - mmengine - INFO - bbox_mAP_copypaste: 0.6302 0.8849 0.6670 0.0529 0.2761 0.7371
+12/20 07:55:19 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6302  coco/bbox_mAP_50: 0.8849  coco/bbox_mAP_75: 0.6670  coco/bbox_mAP_s: 0.0529  coco/bbox_mAP_m: 0.2761  coco/bbox_mAP_l: 0.7371  data_time: 0.0038  time: 0.0657
+12/20 07:55:19 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 07:55:20 - mmengine - INFO - The best checkpoint with 0.6302 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.6302, 'coco/bbox_mAP_50': 0.8849, 'coco/bbox_mAP_75': 0.667, 'coco/bbox_mAP_s': 0.0529, 'coco/bbox_mAP_m': 0.2761, 'coco/bbox_mAP_l': 0.7371}
+12/20 07:55:20 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:55:20 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00437
+12/20 07:58:08 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0845  data_time: 0.0044  memory: 24381  
+12/20 07:58:09 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.24s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.58s).
+Accumulating evaluation results...
+DONE (t=0.54s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.628
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.891
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.672
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.067
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.289
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.735
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.584
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.700
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.712
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.231
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.495
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.787
+12/20 07:58:12 - mmengine - INFO - bbox_mAP_copypaste: 0.6284 0.8911 0.6722 0.0672 0.2889 0.7349
+12/20 07:58:12 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6284  coco/bbox_mAP_50: 0.8911  coco/bbox_mAP_75: 0.6722  coco/bbox_mAP_s: 0.0672  coco/bbox_mAP_m: 0.2889  coco/bbox_mAP_l: 0.7349  data_time: 0.0041  time: 0.0816
+{'coco/bbox_mAP': 0.6284, 'coco/bbox_mAP_50': 0.8911, 'coco/bbox_mAP_75': 0.6722, 'coco/bbox_mAP_s': 0.0672, 'coco/bbox_mAP_m': 0.2889, 'coco/bbox_mAP_l': 0.7349}
+12/20 07:58:12 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 07:58:12 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00415
+12/20 08:01:00 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0863  data_time: 0.0038  memory: 24381  
+12/20 08:01:00 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.04s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.55s).
+Accumulating evaluation results...
+DONE (t=0.46s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.628
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.893
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.661
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.079
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.290
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.728
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.584
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.692
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.702
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.215
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.461
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.785
+12/20 08:01:03 - mmengine - INFO - bbox_mAP_copypaste: 0.6284 0.8933 0.6609 0.0791 0.2897 0.7277
+12/20 08:01:03 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6284  coco/bbox_mAP_50: 0.8933  coco/bbox_mAP_75: 0.6609  coco/bbox_mAP_s: 0.0791  coco/bbox_mAP_m: 0.2897  coco/bbox_mAP_l: 0.7277  data_time: 0.0035  time: 0.0833
+{'coco/bbox_mAP': 0.6284, 'coco/bbox_mAP_50': 0.8933, 'coco/bbox_mAP_75': 0.6609, 'coco/bbox_mAP_s': 0.0791, 'coco/bbox_mAP_m': 0.2897, 'coco/bbox_mAP_l': 0.7277}
+12/20 08:01:03 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 08:01:03 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00392
+12/20 08:03:49 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0677  data_time: 0.0033  memory: 24381  
+12/20 08:03:50 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.18s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.20s).
+Accumulating evaluation results...
+DONE (t=0.41s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.628
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.885
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.685
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.064
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.285
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.727
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.583
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.699
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.710
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.250
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.482
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.787
+12/20 08:03:52 - mmengine - INFO - bbox_mAP_copypaste: 0.6282 0.8847 0.6845 0.0644 0.2850 0.7267
+12/20 08:03:52 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6282  coco/bbox_mAP_50: 0.8847  coco/bbox_mAP_75: 0.6845  coco/bbox_mAP_s: 0.0644  coco/bbox_mAP_m: 0.2850  coco/bbox_mAP_l: 0.7267  data_time: 0.0031  time: 0.0657
+{'coco/bbox_mAP': 0.6282, 'coco/bbox_mAP_50': 0.8847, 'coco/bbox_mAP_75': 0.6845, 'coco/bbox_mAP_s': 0.0644, 'coco/bbox_mAP_m': 0.285, 'coco/bbox_mAP_l': 0.7267}
+12/20 08:03:52 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 08:03:52 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.0037
+12/20 08:06:39 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0819  data_time: 0.0042  memory: 24381  
+12/20 08:06:40 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.26s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.70s).
+Accumulating evaluation results...
+DONE (t=0.54s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.625
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.884
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.670
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.072
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.294
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.729
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.585
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.702
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.717
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.220
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.491
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.794
+12/20 08:06:43 - mmengine - INFO - bbox_mAP_copypaste: 0.6252 0.8840 0.6696 0.0719 0.2937 0.7286
+12/20 08:06:43 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6252  coco/bbox_mAP_50: 0.8840  coco/bbox_mAP_75: 0.6696  coco/bbox_mAP_s: 0.0719  coco/bbox_mAP_m: 0.2937  coco/bbox_mAP_l: 0.7286  data_time: 0.0039  time: 0.0790
+{'coco/bbox_mAP': 0.6252, 'coco/bbox_mAP_50': 0.884, 'coco/bbox_mAP_75': 0.6696, 'coco/bbox_mAP_s': 0.0719, 'coco/bbox_mAP_m': 0.2937, 'coco/bbox_mAP_l': 0.7286}
+12/20 08:06:43 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 08:06:43 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00348
+12/20 08:09:29 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0844  data_time: 0.0045  memory: 24381  
+12/20 08:09:30 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.21s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.40s).
+Accumulating evaluation results...
+DONE (t=0.46s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.629
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.886
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.670
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.064
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.305
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.729
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.586
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.710
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.720
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.223
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.492
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.796
+12/20 08:09:32 - mmengine - INFO - bbox_mAP_copypaste: 0.6293 0.8862 0.6699 0.0640 0.3049 0.7288
+12/20 08:09:32 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6293  coco/bbox_mAP_50: 0.8862  coco/bbox_mAP_75: 0.6699  coco/bbox_mAP_s: 0.0640  coco/bbox_mAP_m: 0.3049  coco/bbox_mAP_l: 0.7288  data_time: 0.0042  time: 0.0815
+{'coco/bbox_mAP': 0.6293, 'coco/bbox_mAP_50': 0.8862, 'coco/bbox_mAP_75': 0.6699, 'coco/bbox_mAP_s': 0.064, 'coco/bbox_mAP_m': 0.3049, 'coco/bbox_mAP_l': 0.7288}
+12/20 08:09:32 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 08:09:32 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00325
+12/20 08:12:20 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0671  data_time: 0.0030  memory: 24381  
+12/20 08:12:20 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.03s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.29s).
+Accumulating evaluation results...
+DONE (t=0.38s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.632
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.893
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.692
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.059
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.300
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.733
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.586
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.698
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.711
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.250
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.491
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.786
+12/20 08:12:22 - mmengine - INFO - bbox_mAP_copypaste: 0.6323 0.8934 0.6915 0.0592 0.2996 0.7334
+12/20 08:12:22 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6323  coco/bbox_mAP_50: 0.8934  coco/bbox_mAP_75: 0.6915  coco/bbox_mAP_s: 0.0592  coco/bbox_mAP_m: 0.2996  coco/bbox_mAP_l: 0.7334  data_time: 0.0028  time: 0.0653
+12/20 08:12:22 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 08:12:24 - mmengine - INFO - The best checkpoint with 0.6323 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.6323, 'coco/bbox_mAP_50': 0.8934, 'coco/bbox_mAP_75': 0.6915, 'coco/bbox_mAP_s': 0.0592, 'coco/bbox_mAP_m': 0.2996, 'coco/bbox_mAP_l': 0.7334}
+12/20 08:12:24 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 08:12:24 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00302
+12/20 08:15:12 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0843  data_time: 0.0032  memory: 24381  
+12/20 08:15:13 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.23s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.61s).
+Accumulating evaluation results...
+DONE (t=0.53s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.633
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.886
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.678
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.052
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.287
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.738
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.593
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.707
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.721
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.260
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.496
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.796
+12/20 08:15:15 - mmengine - INFO - bbox_mAP_copypaste: 0.6325 0.8856 0.6778 0.0518 0.2868 0.7375
+12/20 08:15:15 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6325  coco/bbox_mAP_50: 0.8856  coco/bbox_mAP_75: 0.6778  coco/bbox_mAP_s: 0.0518  coco/bbox_mAP_m: 0.2868  coco/bbox_mAP_l: 0.7375  data_time: 0.0030  time: 0.0814
+12/20 08:15:15 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 08:15:17 - mmengine - INFO - The best checkpoint with 0.6325 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.6325, 'coco/bbox_mAP_50': 0.8856, 'coco/bbox_mAP_75': 0.6778, 'coco/bbox_mAP_s': 0.0518, 'coco/bbox_mAP_m': 0.2868, 'coco/bbox_mAP_l': 0.7375}
+12/20 08:15:17 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 08:15:17 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.0028
+12/20 08:18:04 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0900  data_time: 0.0032  memory: 24381  
+12/20 08:18:05 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.06s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.91s).
+Accumulating evaluation results...
+DONE (t=0.56s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.628
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.886
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.678
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.062
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.293
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.726
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.584
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.700
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.713
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.232
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.492
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.787
+12/20 08:18:08 - mmengine - INFO - bbox_mAP_copypaste: 0.6280 0.8859 0.6781 0.0617 0.2933 0.7255
+12/20 08:18:08 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6280  coco/bbox_mAP_50: 0.8859  coco/bbox_mAP_75: 0.6781  coco/bbox_mAP_s: 0.0617  coco/bbox_mAP_m: 0.2933  coco/bbox_mAP_l: 0.7255  data_time: 0.0030  time: 0.0872
+{'coco/bbox_mAP': 0.628, 'coco/bbox_mAP_50': 0.8859, 'coco/bbox_mAP_75': 0.6781, 'coco/bbox_mAP_s': 0.0617, 'coco/bbox_mAP_m': 0.2933, 'coco/bbox_mAP_l': 0.7255}
+12/20 08:18:08 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 08:18:08 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00258
+12/20 08:21:00 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0857  data_time: 0.0042  memory: 24381  
+12/20 08:21:01 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.22s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.20s).
+Accumulating evaluation results...
+DONE (t=0.39s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.636
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.887
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.681
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.062
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.292
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.735
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.590
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.707
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.718
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.228
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.500
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.793
+12/20 08:21:03 - mmengine - INFO - bbox_mAP_copypaste: 0.6355 0.8873 0.6809 0.0618 0.2916 0.7348
+12/20 08:21:03 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6355  coco/bbox_mAP_50: 0.8873  coco/bbox_mAP_75: 0.6809  coco/bbox_mAP_s: 0.0618  coco/bbox_mAP_m: 0.2916  coco/bbox_mAP_l: 0.7348  data_time: 0.0040  time: 0.0830
+12/20 08:21:03 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 08:21:04 - mmengine - INFO - The best checkpoint with 0.6355 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.6355, 'coco/bbox_mAP_50': 0.8873, 'coco/bbox_mAP_75': 0.6809, 'coco/bbox_mAP_s': 0.0618, 'coco/bbox_mAP_m': 0.2916, 'coco/bbox_mAP_l': 0.7348}
+12/20 08:21:04 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 08:21:04 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00235
+12/20 08:23:52 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0857  data_time: 0.0045  memory: 24381  
+12/20 08:23:52 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.23s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.48s).
+Accumulating evaluation results...
+DONE (t=0.49s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.642
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.897
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.675
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.079
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.301
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.740
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.593
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.708
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.721
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.272
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.494
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.799
+12/20 08:23:55 - mmengine - INFO - bbox_mAP_copypaste: 0.6418 0.8975 0.6751 0.0788 0.3005 0.7400
+12/20 08:23:55 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6418  coco/bbox_mAP_50: 0.8975  coco/bbox_mAP_75: 0.6751  coco/bbox_mAP_s: 0.0788  coco/bbox_mAP_m: 0.3005  coco/bbox_mAP_l: 0.7400  data_time: 0.0042  time: 0.0828
+12/20 08:23:55 - mmengine - INFO - The previous best checkpoint /home/radu.berdan/work/OD/work_dirs/1703054560_y-s_f-norm-max_r-320_c-1_t-pascal_d-cocoraw-v1-pascal+pascal/best_coco_bbox_mAP_epoch_0.pth is removed
+12/20 08:23:56 - mmengine - INFO - The best checkpoint with 0.6418 coco/bbox_mAP at 0 epoch is saved to best_coco_bbox_mAP_epoch_0.pth.
+{'coco/bbox_mAP': 0.6418, 'coco/bbox_mAP_50': 0.8975, 'coco/bbox_mAP_75': 0.6751, 'coco/bbox_mAP_s': 0.0788, 'coco/bbox_mAP_m': 0.3005, 'coco/bbox_mAP_l': 0.74}
+12/20 08:23:56 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 08:23:56 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00213
+12/20 08:26:44 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0795  data_time: 0.0036  memory: 24381  
+12/20 08:26:45 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.19s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.23s).
+Accumulating evaluation results...
+DONE (t=0.40s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.640
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.892
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.694
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.059
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.302
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.739
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.590
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.710
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.723
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.266
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.500
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.800
+12/20 08:26:47 - mmengine - INFO - bbox_mAP_copypaste: 0.6399 0.8924 0.6943 0.0588 0.3021 0.7394
+12/20 08:26:47 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6399  coco/bbox_mAP_50: 0.8924  coco/bbox_mAP_75: 0.6943  coco/bbox_mAP_s: 0.0588  coco/bbox_mAP_m: 0.3021  coco/bbox_mAP_l: 0.7394  data_time: 0.0034  time: 0.0764
+{'coco/bbox_mAP': 0.6399, 'coco/bbox_mAP_50': 0.8924, 'coco/bbox_mAP_75': 0.6943, 'coco/bbox_mAP_s': 0.0588, 'coco/bbox_mAP_m': 0.3021, 'coco/bbox_mAP_l': 0.7394}
+12/20 08:26:47 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 08:26:47 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.0019
+12/20 08:29:34 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0838  data_time: 0.0032  memory: 24381  
+12/20 08:29:35 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.05s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.71s).
+Accumulating evaluation results...
+DONE (t=0.46s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.632
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.895
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.693
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.051
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.291
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.733
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.588
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.704
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.714
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.222
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.490
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.792
+12/20 08:29:37 - mmengine - INFO - bbox_mAP_copypaste: 0.6321 0.8947 0.6928 0.0509 0.2907 0.7325
+12/20 08:29:37 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6321  coco/bbox_mAP_50: 0.8947  coco/bbox_mAP_75: 0.6928  coco/bbox_mAP_s: 0.0509  coco/bbox_mAP_m: 0.2907  coco/bbox_mAP_l: 0.7325  data_time: 0.0030  time: 0.0810
+{'coco/bbox_mAP': 0.6321, 'coco/bbox_mAP_50': 0.8947, 'coco/bbox_mAP_75': 0.6928, 'coco/bbox_mAP_s': 0.0509, 'coco/bbox_mAP_m': 0.2907, 'coco/bbox_mAP_l': 0.7325}
+12/20 08:29:37 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 08:29:37 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00167
+12/20 08:32:24 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0677  data_time: 0.0039  memory: 24381  
+12/20 08:32:24 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.04s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.29s).
+Accumulating evaluation results...
+DONE (t=0.38s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.638
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.892
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.681
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.073
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.282
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.740
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.593
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.706
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.721
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.262
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.500
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.796
+12/20 08:32:26 - mmengine - INFO - bbox_mAP_copypaste: 0.6376 0.8920 0.6807 0.0732 0.2818 0.7400
+12/20 08:32:26 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6376  coco/bbox_mAP_50: 0.8920  coco/bbox_mAP_75: 0.6807  coco/bbox_mAP_s: 0.0732  coco/bbox_mAP_m: 0.2818  coco/bbox_mAP_l: 0.7400  data_time: 0.0037  time: 0.0657
+{'coco/bbox_mAP': 0.6376, 'coco/bbox_mAP_50': 0.892, 'coco/bbox_mAP_75': 0.6807, 'coco/bbox_mAP_s': 0.0732, 'coco/bbox_mAP_m': 0.2818, 'coco/bbox_mAP_l': 0.74}
+12/20 08:32:26 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 08:32:26 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00145
+12/20 08:35:13 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0703  data_time: 0.0042  memory: 24381  
+12/20 08:35:13 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.03s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.26s).
+Accumulating evaluation results...
+DONE (t=0.30s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.632
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.892
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.667
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.060
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.283
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.736
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.584
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.699
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.711
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.279
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.489
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.786
+12/20 08:35:15 - mmengine - INFO - bbox_mAP_copypaste: 0.6321 0.8917 0.6669 0.0604 0.2827 0.7358
+12/20 08:35:15 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6321  coco/bbox_mAP_50: 0.8917  coco/bbox_mAP_75: 0.6669  coco/bbox_mAP_s: 0.0604  coco/bbox_mAP_m: 0.2827  coco/bbox_mAP_l: 0.7358  data_time: 0.0039  time: 0.0683
+{'coco/bbox_mAP': 0.6321, 'coco/bbox_mAP_50': 0.8917, 'coco/bbox_mAP_75': 0.6669, 'coco/bbox_mAP_s': 0.0604, 'coco/bbox_mAP_m': 0.2827, 'coco/bbox_mAP_l': 0.7358}
+12/20 08:35:15 - mmengine - INFO - Scaled weight_decay to 0.002
+12/20 08:35:15 - mmengine - INFO - Optimizer groups: 63 .bias, 63 conv.weight, 57 other
+-> Setup new lr: 0.00122
+12/20 08:38:02 - mmengine - INFO - Epoch(val)  [0][50/54]    eta: 0:00:00  time: 0.0815  data_time: 0.0035  memory: 24381  
+12/20 08:38:02 - mmengine - INFO - Evaluating bbox...
+Loading and preparing results...
+DONE (t=0.03s)
+creating index...
+::::::::::::::::::::::::CATS:::: {2: {'supercategory': 'none', 'id': 2, 'name': 'person'}, 0: {'supercategory': 'none', 'id': 0, 'name': 'bicycle'}, 1: {'supercategory': 'none', 'id': 1, 'name': 'car'}}
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=1.37s).
+Accumulating evaluation results...
+DONE (t=0.38s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.640
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.893
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.685
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.067
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.297
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.743
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.597
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.710
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.718
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.315
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.490
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.795
+12/20 08:38:04 - mmengine - INFO - bbox_mAP_copypaste: 0.6404 0.8926 0.6851 0.0674 0.2969 0.7428
+12/20 08:38:04 - mmengine - INFO - Epoch(val) [0][54/54]    coco/bbox_mAP: 0.6404  coco/bbox_mAP_50: 0.8926  coco/bbox_mAP_75: 0.6851  coco/bbox_mAP_s: 0.0674  coco/bbox_mAP_m: 0.2969  coco/bbox_mAP_l: 0.7428  data_time: 0.0033  time: 0.0787
+{'coco/bbox_mAP': 0.6404, 'coco/bbox_mAP_50': 0.8926, 'coco/bbox_mAP_75': 0.6851, 'coco/bbox_mAP_s': 0.0674, 'coco/bbox_mAP_m': 0.2969, 'coco/bbox_mAP_l': 0.7428}
